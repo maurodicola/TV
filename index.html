@@ -22,7 +22,7 @@
         }
         
         .header-area {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #001575 0%, #5d00ba 100%);
             padding: 21px 14px; /* Reduced by 30% */
             text-align: center;
             border-bottom: 2px solid #333; /* Reduced by 30% */
@@ -496,22 +496,55 @@
             }
             
             .tv-grid {
-                grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Reduced by 30% from 250px */
-                gap: 14px; /* Reduced by 30% */
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row on mobile */
+                gap: 10px;
+                justify-items: center; /* Center the cards */
+            }
+            
+            .tv-card {
+                width: 100%; /* Full width within grid cell */
+                max-width: 180px; /* Limit max width */
             }
             
             .tv-image {
-                height: 175px; /* Reduced by 30% from 250px */
+                height: 150px; /* Smaller height for mobile */
+                padding: 10px;
+            }
+            
+            .tv-name {
+                font-size: 0.9em;
+                padding: 8px 10px;
             }
             
             .button-group {
                 flex-direction: column;
             }
+            
+            .channel-actions {
+                top: 5px;
+                right: 5px;
+                gap: 4px;
+            }
+            
+            .btn-edit-channel,
+            .btn-delete-channel {
+                width: 24px;
+                height: 24px;
+                font-size: 0.9em;
+            }
         }
         
         @media (max-width: 480px) {
             .tv-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr); /* Still 2 cards on very small screens */
+            }
+            
+            .tv-card {
+                max-width: 160px;
+            }
+            
+            .tv-image {
+                height: 130px;
             }
         }
         
@@ -597,7 +630,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 TV Channels Manager - Creato da AI e Umano</p>
+        <p>2025 TV Channels Manager - Creato da AI e Umano</p>
         <p>I dati sono salvati localmente nel tuo browser</p>
     </footer>
 
