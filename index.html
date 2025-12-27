@@ -18,57 +18,58 @@
             background-color: #1a1a1a;
             color: #ffffff;
             line-height: 1.6;
+            font-size: 0.7em; /* Reduced by 30% */
         }
         
         .header-area {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px 20px;
+            padding: 21px 14px; /* Reduced by 30% */
             text-align: center;
-            border-bottom: 3px solid #333;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-bottom: 2px solid #333; /* Reduced by 30% */
+            box-shadow: 0 3px 4px rgba(0,0,0,0.3); /* Reduced by 30% */
         }
         
         h1 {
-            font-size: 2.5em;
+            font-size: 1.75em; /* Reduced by 30% from 2.5em */
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
+            text-shadow: 1.4px 1.4px 2.8px rgba(0,0,0,0.5); /* Reduced by 30% */
+            margin-bottom: 7px; /* Reduced by 30% */
         }
         
         .subtitle {
-            font-size: 1.1em;
+            font-size: 0.77em; /* Reduced by 30% from 1.1em */
             color: #f0f0f0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0.7px 0.7px 1.4px rgba(0,0,0,0.3); /* Reduced by 30% */
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 980px; /* Reduced by 30% from 1400px */
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 28px 14px; /* Reduced by 30% */
         }
         
-        /* Admin Panel */
+        /* Admin Panel - moved to bottom */
         .admin-panel {
             background: #2a2a2a;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-radius: 8.4px; /* Reduced by 30% */
+            padding: 21px; /* Reduced by 30% */
+            margin-top: 40px; /* Changed from margin-bottom */
+            box-shadow: 0 3px 4px rgba(0,0,0,0.3); /* Reduced by 30% */
         }
         
         .admin-title {
-            font-size: 1.8em;
-            margin-bottom: 20px;
+            font-size: 1.26em; /* Reduced by 30% from 1.8em */
+            margin-bottom: 14px; /* Reduced by 30% */
             color: #667eea;
-            border-bottom: 2px solid #444;
-            padding-bottom: 10px;
+            border-bottom: 1.4px solid #444; /* Reduced by 30% */
+            padding-bottom: 7px; /* Reduced by 30% */
         }
         
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); /* Reduced by 30% from 250px */
+            gap: 14px; /* Reduced by 30% */
+            margin-bottom: 14px; /* Reduced by 30% */
         }
         
         .form-group {
@@ -78,7 +79,7 @@
         
         label {
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 5.6px; /* Reduced by 30% */
             color: #ccc;
             font-size: 0.95em;
         }
@@ -86,9 +87,9 @@
         input[type="text"],
         input[type="url"],
         select {
-            padding: 12px;
-            border: 2px solid #444;
-            border-radius: 6px;
+            padding: 8.4px; /* Reduced by 30% */
+            border: 1.4px solid #444; /* Reduced by 30% */
+            border-radius: 4.2px; /* Reduced by 30% */
             background: #1a1a1a;
             color: #fff;
             font-size: 1em;
@@ -104,14 +105,14 @@
         
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10.5px; /* Reduced by 30% */
+            margin-top: 14px; /* Reduced by 30% */
         }
         
         button {
-            padding: 12px 30px;
+            padding: 8.4px 21px; /* Reduced by 30% */
             border: none;
-            border-radius: 6px;
+            border-radius: 4.2px; /* Reduced by 30% */
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
@@ -161,33 +162,43 @@
         
         /* Groups and Cards */
         .group-section {
-            margin-bottom: 50px;
+            margin-bottom: 35px; /* Reduced by 30% */
         }
         
         .group-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #444;
+            margin-bottom: 14px; /* Reduced by 30% */
+            padding-bottom: 7px; /* Reduced by 30% */
+            border-bottom: 1.4px solid #444; /* Reduced by 30% */
         }
         
         .section-title {
-            font-size: 2em;
+            font-size: 1.4em; /* Reduced by 30% from 2em */
             color: #fff;
         }
         
         .group-actions {
             display: flex;
-            gap: 10px;
+            gap: 7px; /* Reduced by 30% */
+        }
+        
+        .btn-edit-group,
+        .btn-delete-group {
+            width: 28px; /* Square button, reduced by 30% */
+            height: 28px; /* Square button, reduced by 30% */
+            padding: 0;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
         
         .btn-edit-group {
             background: #3498db;
             color: white;
-            padding: 8px 20px;
-            font-size: 0.9em;
         }
         
         .btn-edit-group:hover {
@@ -197,33 +208,77 @@
         .btn-delete-group {
             background: #e74c3c;
             color: white;
-            padding: 8px 20px;
-            font-size: 0.9em;
         }
         
         .btn-delete-group:hover {
             background: #c0392b;
         }
         
+        /* Tooltip for buttons */
+        .btn-edit-group::after {
+            content: 'Modifica';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .btn-edit-group:hover::after {
+            opacity: 1;
+        }
+        
+        .btn-delete-group::after {
+            content: 'Elimina';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .btn-delete-group:hover::after {
+            opacity: 1;
+        }
+        
         .tv-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); /* Reduced by 30% from 300px */
+            gap: 21px; /* Reduced by 30% */
         }
         
         .tv-card {
             background: #2a2a2a;
-            border-radius: 12px;
+            border-radius: 8.4px; /* Reduced by 30% */
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 2.8px 4.2px rgba(0,0,0,0.3); /* Reduced by 30% */
             position: relative;
             cursor: move;
+            width: 210px; /* Fixed width to ensure consistent alignment */
         }
         
         .tv-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            transform: translateY(-3.5px); /* Reduced by 30% */
+            box-shadow: 0 5.6px 11.2px rgba(0,0,0,0.5); /* Reduced by 30% */
         }
         
         .tv-card.dragging {
@@ -233,7 +288,7 @@
         }
         
         .tv-card.drag-over {
-            border: 2px dashed #667eea;
+            border: 1.4px dashed #667eea; /* Reduced by 30% */
             background: #3a3a3a;
         }
         
@@ -245,15 +300,15 @@
         
         .tv-image {
             width: 100%;
-            height: 300px;
+            height: 210px; /* Reduced by 30% from 300px */
             object-fit: contain;
             background: #1a1a1a;
-            padding: 20px;
+            padding: 14px; /* Reduced by 30% */
             display: block;
         }
         
         .tv-name {
-            padding: 15px 20px;
+            padding: 10.5px 14px; /* Reduced by 30% */
             font-size: 1.1em;
             font-weight: 600;
             text-align: center;
@@ -263,61 +318,106 @@
         
         .channel-actions {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 7px; /* Reduced by 30% */
+            right: 7px; /* Reduced by 30% */
             display: flex;
-            gap: 8px;
+            gap: 5.6px; /* Reduced by 30% */
             z-index: 10;
         }
         
         .btn-edit-channel,
         .btn-delete-channel {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            width: 28px; /* Square button like group buttons */
+            height: 28px; /* Square button like group buttons */
+            padding: 0;
+            font-size: 1em;
             border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            font-size: 1.1em;
+            border-radius: 4.2px; /* Reduced by 30% from 6px */
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            backdrop-filter: blur(5px);
+            position: relative;
+            color: white;
         }
         
         .btn-edit-channel {
-            background: rgba(52, 152, 219, 0.9);
+            background: #3498db;
         }
         
         .btn-edit-channel:hover {
-            background: rgba(41, 128, 185, 1);
-            transform: scale(1.1);
+            background: #2980b9;
+            transform: scale(1.05);
         }
         
         .btn-delete-channel {
-            background: rgba(231, 76, 60, 0.9);
+            background: #e74c3c;
         }
         
         .btn-delete-channel:hover {
-            background: rgba(192, 57, 43, 1);
-            transform: scale(1.1);
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+        
+        /* Tooltip for channel buttons */
+        .btn-edit-channel::after {
+            content: 'Modifica';
+            position: absolute;
+            bottom: -25px; /* Changed from top to bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .btn-edit-channel:hover::after {
+            opacity: 1;
+        }
+        
+        .btn-delete-channel::after {
+            content: 'Elimina';
+            position: absolute;
+            bottom: -25px; /* Changed from top to bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .btn-delete-channel:hover::after {
+            opacity: 1;
         }
         
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 42px 14px; /* Reduced by 30% */
             color: #666;
             font-size: 1.2em;
         }
         
         footer {
             background: #0a0a0a;
-            padding: 30px 20px;
+            padding: 21px 14px; /* Reduced by 30% */
             text-align: center;
-            margin-top: 60px;
-            border-top: 3px solid #333;
+            margin-top: 42px; /* Reduced by 30% */
+            border-top: 2.1px solid #333; /* Reduced by 30% */
         }
         
         footer p {
@@ -345,25 +445,25 @@
         
         .modal-content {
             background: #2a2a2a;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
+            padding: 21px; /* Reduced by 30% */
+            border-radius: 8.4px; /* Reduced by 30% */
+            max-width: 350px; /* Reduced by 30% from 500px */
             width: 90%;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            box-shadow: 0 5.6px 22.4px rgba(0,0,0,0.5); /* Reduced by 30% */
             max-height: 90vh;
             overflow-y: auto;
         }
         
         .modal-title {
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            font-size: 1.05em; /* Reduced by 30% from 1.5em */
+            margin-bottom: 14px; /* Reduced by 30% */
             color: #667eea;
         }
         
         .modal-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 7px; /* Reduced by 30% */
+            margin-top: 14px; /* Reduced by 30% */
         }
         
         .btn-cancel {
@@ -388,7 +488,7 @@
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2em;
+                font-size: 1.4em; /* Reduced by 30% from 2em */
             }
             
             .form-grid {
@@ -396,12 +496,12 @@
             }
             
             .tv-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); /* Reduced by 30% from 250px */
+                gap: 14px; /* Reduced by 30% */
             }
             
             .tv-image {
-                height: 250px;
+                height: 175px; /* Reduced by 30% from 250px */
             }
             
             .button-group {
@@ -429,9 +529,9 @@
         }
         
         .file-input-label {
-            padding: 12px;
-            border: 2px solid #444;
-            border-radius: 6px;
+            padding: 8.4px; /* Reduced by 30% */
+            border: 1.4px solid #444; /* Reduced by 30% */
+            border-radius: 4.2px; /* Reduced by 30% */
             background: #1a1a1a;
             color: #999;
             font-size: 1em;
@@ -452,13 +552,12 @@
     </style>
 </head>
 <body>
-    <div class="header-area">
-        <h1>🎬 TV Channels Manager</h1>
-        <p class="subtitle">Gestisci i tuoi canali TV preferiti</p>
-    </div>
 
     <div class="container">
-        <!-- Admin Panel -->
+        <!-- Channels Display Area -->
+        <div id="channelsDisplay"></div>
+
+        <!-- Admin Panel - moved to bottom -->
         <div class="admin-panel">
             <h2 class="admin-title">➕ Aggiungi Nuovo Canale</h2>
             
@@ -495,9 +594,6 @@
             
             <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
         </div>
-
-        <!-- Channels Display Area -->
-        <div id="channelsDisplay"></div>
     </div>
 
     <footer>
@@ -836,10 +932,10 @@
                             <h2 class="section-title">${group}</h2>
                             <div class="group-actions">
                                 <button class="btn-edit-group" onclick="showEditGroupModal('${group.replace(/'/g, "\\'")}')">
-                                    ✏️ Modifica
+                                    ✏️
                                 </button>
                                 <button class="btn-delete-group" onclick="deleteGroup('${group.replace(/'/g, "\\'")}')">
-                                    🗑️ Elimina
+                                    🗑️
                                 </button>
                             </div>
                         </div>
