@@ -259,6 +259,93 @@
             opacity: 1;
         }
         
+        /* Floating Admin Button */
+        .admin-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .admin-toggle-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .admin-toggle-btn.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .admin-toggle-btn.active:hover {
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        /* Hide admin controls by default */
+        .admin-panel,
+        .channel-actions,
+        .group-actions {
+            display: none;
+        }
+        
+        /* Show admin controls when admin mode is active */
+        body.admin-mode .admin-panel {
+            display: block;
+        }
+        
+        body.admin-mode .channel-actions,
+        body.admin-mode .group-actions {
+            display: flex;
+        }
+        
+        /* Smooth transitions for admin controls */
+        .admin-panel {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .channel-actions,
+        .group-actions {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
         .tv-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); /* Reduced by 30% from 300px */
@@ -320,7 +407,7 @@
             position: absolute;
             top: 7px; /* Reduced by 30% */
             right: 7px; /* Reduced by 30% */
-            display: flex;
+            display: none; /* Hidden by default */
             gap: 5.6px; /* Reduced by 30% */
             z-index: 10;
         }
@@ -628,6 +715,11 @@
             <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
         </div>
     </div>
+
+    <!-- Floating Admin Toggle Button -->
+    <button class="admin-toggle-btn" onclick="toggleAdminMode()" title="Attiva/Disattiva modalità amministrazione">
+        🔧
+    </button>
 
     <footer>
         <p>2025 TV Channels Manager - Creato da AI e Umano</p>
@@ -1141,6 +1233,24 @@
             
             reader.readAsText(file);
             event.target.value = ''; // Reset file input
+        }
+
+        // Toggle admin mode
+        function toggleAdminMode() {
+            const body = document.body;
+            const btn = document.querySelector('.admin-toggle-btn');
+            
+            body.classList.toggle('admin-mode');
+            
+            if (body.classList.contains('admin-mode')) {
+                btn.classList.add('active');
+                btn.innerHTML = '✖️';
+                btn.title = 'Disattiva modalità amministrazione';
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '🔧';
+                btn.title = 'Attiva modalità amministrazione';
+            }
         }
 
         // Initialize on page load
