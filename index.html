@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TV Channels Manager</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .header-area {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            color: #f0f0f0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        
+        .admin-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.95em;
+        }
+        
+        input[type="text"],
+        input[type="url"],
+        select {
+            padding: 12px;
+            border: 2px solid #444;
+            border-radius: 6px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-new-group {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-new-group:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .btn-export {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        .btn-import {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-import:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Groups and Cards */
+        .group-section {
+            margin-bottom: 50px;
+        }
+        
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #444;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #fff;
+        }
+        
+        .group-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-edit-group {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.9em;
+        }
+        
+        .btn-edit-group:hover {
+            background: #2980b9;
+        }
+        
+        .btn-delete-group {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.9em;
+        }
+        
+        .btn-delete-group:hover {
+            background: #c0392b;
+        }
+        
+        .tv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tv-card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            position: relative;
+            cursor: move;
+        }
+        
+        .tv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        }
+        
+        .tv-card.dragging {
+            opacity: 0.5;
+            transform: scale(1.05);
+            cursor: grabbing;
+        }
+        
+        .tv-card.drag-over {
+            border: 2px dashed #667eea;
+            background: #3a3a3a;
+        }
+        
+        .tv-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .tv-image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background: #1a1a1a;
+            padding: 20px;
+            display: block;
+        }
+        
+        .tv-name {
+            padding: 15px 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            background: #333;
+            color: #fff;
+        }
+        
+        .channel-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .btn-edit-channel,
+        .btn-delete-channel {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn-edit-channel {
+            background: rgba(52, 152, 219, 0.9);
+        }
+        
+        .btn-edit-channel:hover {
+            background: rgba(41, 128, 185, 1);
+            transform: scale(1.1);
+        }
+        
+        .btn-delete-channel {
+            background: rgba(231, 76, 60, 0.9);
+        }
+        
+        .btn-delete-channel:hover {
+            background: rgba(192, 57, 43, 1);
+            transform: scale(1.1);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        footer {
+            background: #0a0a0a;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 3px solid #333;
+        }
+        
+        footer p {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        /* Modal for new group and edit channel */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-cancel {
+            background: #666;
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-cancel:hover {
+            background: #555;
+        }
+        
+        .btn-confirm {
+            background: #2ecc71;
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-confirm:hover {
+            background: #27ae60;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tv-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .tv-image {
+                height: 250px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* File input custom styling */
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        .file-input-label {
+            padding: 12px;
+            border: 2px solid #444;
+            border-radius: 6px;
+            background: #1a1a1a;
+            color: #999;
+            font-size: 1em;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        .file-input-label:hover {
+            border-color: #667eea;
+        }
+        
+        .file-input-label.has-file {
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-area">
+        <h1>🎬 TV Channels Manager</h1>
+        <p class="subtitle">Gestisci i tuoi canali TV preferiti</p>
+    </div>
+
+    <div class="container">
+        <!-- Admin Panel -->
+        <div class="admin-panel">
+            <h2 class="admin-title">➕ Aggiungi Nuovo Canale</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="channelName">Nome Canale *</label>
+                    <input type="text" id="channelName" placeholder="es. RAI News 24" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="channelUrl">URL Canale *</label>
+                    <input type="url" id="channelUrl" placeholder="https://..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="channelImage">URL Immagine *</label>
+                    <input type="url" id="channelImage" placeholder="https://..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="channelGroup">Gruppo *</label>
+                    <select id="channelGroup" required>
+                        <option value="">Seleziona gruppo...</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-add" onclick="addChannel()">Aggiungi Canale</button>
+                <button class="btn-new-group" onclick="showNewGroupModal()">Nuovo Gruppo</button>
+                <button class="btn-export" onclick="exportData()">Esporta Dati</button>
+                <button class="btn-import" onclick="document.getElementById('importFile').click()">Importa Dati</button>
+            </div>
+            
+            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+        </div>
+
+        <!-- Channels Display Area -->
+        <div id="channelsDisplay"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 TV Channels Manager - Creato da Mauro</p>
+        <p>I dati sono salvati localmente nel tuo browser</p>
+    </footer>
+
+    <!-- Modal for new group -->
+    <div id="newGroupModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Crea Nuovo Gruppo</h3>
+            <div class="form-group">
+                <label for="newGroupName">Nome Gruppo</label>
+                <input type="text" id="newGroupName" placeholder="es. Canali Nazionali">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideNewGroupModal()">Annulla</button>
+                <button class="btn-confirm" onclick="createNewGroup()">Crea</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for edit group -->
+    <div id="editGroupModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">✏️ Modifica Gruppo</h3>
+            <input type="hidden" id="editGroupOldName">
+            <div class="form-group">
+                <label for="editGroupName">Nome Gruppo *</label>
+                <input type="text" id="editGroupName" placeholder="es. Canali Nazionali" required>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideEditGroupModal()">Annulla</button>
+                <button class="btn-confirm" onclick="saveGroupEdit()">Salva Modifiche</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for edit channel -->
+    <div id="editChannelModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">✏️ Modifica Canale</h3>
+            <input type="hidden" id="editChannelId">
+            <div class="form-group">
+                <label for="editChannelName">Nome Canale *</label>
+                <input type="text" id="editChannelName" placeholder="es. RAI News 24" required>
+            </div>
+            <div class="form-group">
+                <label for="editChannelUrl">URL Canale *</label>
+                <input type="url" id="editChannelUrl" placeholder="https://..." required>
+            </div>
+            <div class="form-group">
+                <label for="editChannelImage">URL Immagine *</label>
+                <input type="url" id="editChannelImage" placeholder="https://..." required>
+            </div>
+            <div class="form-group">
+                <label for="editChannelGroup">Gruppo *</label>
+                <select id="editChannelGroup" required>
+                    <option value="">Seleziona gruppo...</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideEditChannelModal()">Annulla</button>
+                <button class="btn-confirm" onclick="saveChannelEdit()">Salva Modifiche</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        let channels = [];
+        let groups = [];
+
+        // Initialize
+        function init() {
+            loadData();
+            updateGroupSelect();
+            renderChannels();
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const savedChannels = localStorage.getItem('tvChannels');
+            const savedGroups = localStorage.getItem('tvGroups');
+            
+            if (savedChannels) {
+                channels = JSON.parse(savedChannels);
+            }
+            
+            if (savedGroups) {
+                groups = JSON.parse(savedGroups);
+            } else {
+                // Default groups
+                groups = ['Canali Nazionali', 'Canali Internazionali'];
+                saveData();
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('tvChannels', JSON.stringify(channels));
+            localStorage.setItem('tvGroups', JSON.stringify(groups));
+        }
+
+        // Update group select dropdown
+        function updateGroupSelect() {
+            const select = document.getElementById('channelGroup');
+            select.innerHTML = '<option value="">Seleziona gruppo...</option>';
+            
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group;
+                option.textContent = group;
+                select.appendChild(option);
+            });
+        }
+
+        // Add new channel
+        function addChannel() {
+            const name = document.getElementById('channelName').value.trim();
+            const url = document.getElementById('channelUrl').value.trim();
+            const image = document.getElementById('channelImage').value.trim();
+            const group = document.getElementById('channelGroup').value;
+
+            if (!name || !url || !image || !group) {
+                alert('Per favore, compila tutti i campi obbligatori!');
+                return;
+            }
+
+            const channel = {
+                id: Date.now(),
+                name,
+                url,
+                image,
+                group
+            };
+
+            channels.push(channel);
+            saveData();
+            renderChannels();
+
+            // Clear form
+            document.getElementById('channelName').value = '';
+            document.getElementById('channelUrl').value = '';
+            document.getElementById('channelImage').value = '';
+            document.getElementById('channelGroup').value = '';
+
+            alert('Canale aggiunto con successo!');
+        }
+
+        // Delete channel
+        function deleteChannel(id) {
+            if (confirm('Sei sicuro di voler eliminare questo canale?')) {
+                channels = channels.filter(ch => ch.id !== id);
+                saveData();
+                renderChannels();
+            }
+        }
+
+        // Show edit channel modal
+        function showEditChannelModal(id) {
+            const channel = channels.find(ch => ch.id === id);
+            if (!channel) return;
+
+            document.getElementById('editChannelId').value = id;
+            document.getElementById('editChannelName').value = channel.name;
+            document.getElementById('editChannelUrl').value = channel.url;
+            document.getElementById('editChannelImage').value = channel.image;
+            
+            // Update group select for edit modal
+            const select = document.getElementById('editChannelGroup');
+            select.innerHTML = '<option value="">Seleziona gruppo...</option>';
+            groups.forEach(group => {
+                const option = document.createElement('option');
+                option.value = group;
+                option.textContent = group;
+                if (group === channel.group) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            document.getElementById('editChannelModal').classList.add('active');
+        }
+
+        // Hide edit channel modal
+        function hideEditChannelModal() {
+            document.getElementById('editChannelModal').classList.remove('active');
+            document.getElementById('editChannelId').value = '';
+            document.getElementById('editChannelName').value = '';
+            document.getElementById('editChannelUrl').value = '';
+            document.getElementById('editChannelImage').value = '';
+            document.getElementById('editChannelGroup').value = '';
+        }
+
+        // Save channel edit
+        function saveChannelEdit() {
+            const id = parseInt(document.getElementById('editChannelId').value);
+            const name = document.getElementById('editChannelName').value.trim();
+            const url = document.getElementById('editChannelUrl').value.trim();
+            const image = document.getElementById('editChannelImage').value.trim();
+            const group = document.getElementById('editChannelGroup').value;
+
+            if (!name || !url || !image || !group) {
+                alert('Per favore, compila tutti i campi obbligatori!');
+                return;
+            }
+
+            const channelIndex = channels.findIndex(ch => ch.id === id);
+            if (channelIndex !== -1) {
+                channels[channelIndex] = {
+                    id,
+                    name,
+                    url,
+                    image,
+                    group
+                };
+                saveData();
+                renderChannels();
+                hideEditChannelModal();
+                alert('Canale modificato con successo!');
+            }
+        }
+
+        // Show new group modal
+        function showNewGroupModal() {
+            document.getElementById('newGroupModal').classList.add('active');
+        }
+
+        // Hide new group modal
+        function hideNewGroupModal() {
+            document.getElementById('newGroupModal').classList.remove('active');
+            document.getElementById('newGroupName').value = '';
+        }
+
+        // Create new group
+        function createNewGroup() {
+            const groupName = document.getElementById('newGroupName').value.trim();
+            
+            if (!groupName) {
+                alert('Inserisci un nome per il gruppo!');
+                return;
+            }
+
+            if (groups.includes(groupName)) {
+                alert('Questo gruppo esiste già!');
+                return;
+            }
+
+            groups.push(groupName);
+            saveData();
+            updateGroupSelect();
+            hideNewGroupModal();
+            alert('Gruppo creato con successo!');
+        }
+
+        // Delete group
+        function deleteGroup(groupName) {
+            if (confirm(`Sei sicuro di voler eliminare il gruppo "${groupName}"?\nTutti i canali in questo gruppo verranno eliminati.`)) {
+                channels = channels.filter(ch => ch.group !== groupName);
+                groups = groups.filter(g => g !== groupName);
+                saveData();
+                updateGroupSelect();
+                renderChannels();
+            }
+        }
+
+        // Show edit group modal
+        function showEditGroupModal(oldName) {
+            document.getElementById('editGroupOldName').value = oldName;
+            document.getElementById('editGroupName').value = oldName;
+            document.getElementById('editGroupModal').classList.add('active');
+        }
+
+        // Hide edit group modal
+        function hideEditGroupModal() {
+            document.getElementById('editGroupModal').classList.remove('active');
+            document.getElementById('editGroupOldName').value = '';
+            document.getElementById('editGroupName').value = '';
+        }
+
+        // Save group edit
+        function saveGroupEdit() {
+            const oldName = document.getElementById('editGroupOldName').value;
+            const newName = document.getElementById('editGroupName').value.trim();
+
+            if (!newName) {
+                alert('Inserisci un nome per il gruppo!');
+                return;
+            }
+
+            if (newName !== oldName && groups.includes(newName)) {
+                alert('Questo nome gruppo esiste già!');
+                return;
+            }
+
+            // Update group name in groups array
+            const groupIndex = groups.indexOf(oldName);
+            if (groupIndex !== -1) {
+                groups[groupIndex] = newName;
+            }
+
+            // Update group name in all channels
+            channels.forEach(channel => {
+                if (channel.group === oldName) {
+                    channel.group = newName;
+                }
+            });
+
+            saveData();
+            updateGroupSelect();
+            renderChannels();
+            hideEditGroupModal();
+            alert('Gruppo modificato con successo!');
+        }
+
+        // Render channels
+        function renderChannels() {
+            const display = document.getElementById('channelsDisplay');
+            display.innerHTML = '';
+
+            if (channels.length === 0) {
+                display.innerHTML = '<div class="empty-state">Nessun canale aggiunto. Inizia creando il tuo primo canale!</div>';
+                return;
+            }
+
+            groups.forEach(group => {
+                const groupChannels = channels.filter(ch => ch.group === group);
+                
+                if (groupChannels.length > 0) {
+                    const section = document.createElement('div');
+                    section.className = 'group-section';
+                    
+                    section.innerHTML = `
+                        <div class="group-header">
+                            <h2 class="section-title">${group}</h2>
+                            <div class="group-actions">
+                                <button class="btn-edit-group" onclick="showEditGroupModal('${group.replace(/'/g, "\\'")}')">
+                                    ✏️ Modifica
+                                </button>
+                                <button class="btn-delete-group" onclick="deleteGroup('${group.replace(/'/g, "\\'")}')">
+                                    🗑️ Elimina
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tv-grid" id="group-${group.replace(/\s+/g, '-')}"></div>
+                    `;
+                    
+                    display.appendChild(section);
+                    
+                    const grid = section.querySelector('.tv-grid');
+                    
+                    groupChannels.forEach(channel => {
+                        const card = document.createElement('div');
+                        card.className = 'tv-card';
+                        card.draggable = true;
+                        card.dataset.channelId = channel.id;
+                        card.dataset.groupName = group;
+                        
+                        card.innerHTML = `
+                            <div class="channel-actions">
+                                <button class="btn-edit-channel" onclick="event.stopPropagation(); showEditChannelModal(${channel.id})" title="Modifica canale">
+                                    ✏️
+                                </button>
+                                <button class="btn-delete-channel" onclick="event.stopPropagation(); deleteChannel(${channel.id})" title="Elimina canale">
+                                    🗑️
+                                </button>
+                            </div>
+                            <a href="${channel.url}" target="_blank" rel="noopener">
+                                <img class="tv-image" src="${channel.image}" alt="${channel.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22600%22><rect width=%22600%22 height=%22600%22 fill=%22%23333%22/><text x=%2250%%22 y=%2250%%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>Immagine non disponibile</text></svg>'">
+                                <div class="tv-name">${channel.name}</div>
+                            </a>
+                        `;
+                        
+                        // Add drag and drop event listeners
+                        card.addEventListener('dragstart', handleDragStart);
+                        card.addEventListener('dragover', handleDragOver);
+                        card.addEventListener('drop', handleDrop);
+                        card.addEventListener('dragend', handleDragEnd);
+                        card.addEventListener('dragenter', handleDragEnter);
+                        card.addEventListener('dragleave', handleDragLeave);
+                        
+                        grid.appendChild(card);
+                    });
+                }
+            });
+        }
+
+        // Drag and drop handlers
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedElement) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (draggedElement !== this) {
+                const draggedId = parseInt(draggedElement.dataset.channelId);
+                const targetId = parseInt(this.dataset.channelId);
+                const targetGroup = this.dataset.groupName;
+
+                // Find indices
+                const draggedIndex = channels.findIndex(ch => ch.id === draggedId);
+                const targetIndex = channels.findIndex(ch => ch.id === targetId);
+
+                if (draggedIndex !== -1 && targetIndex !== -1) {
+                    // Get the dragged channel
+                    const draggedChannel = channels[draggedIndex];
+                    
+                    // Update group if dropped in different group
+                    draggedChannel.group = targetGroup;
+
+                    // Remove from old position
+                    channels.splice(draggedIndex, 1);
+
+                    // Calculate new position
+                    const newTargetIndex = channels.findIndex(ch => ch.id === targetId);
+                    
+                    // Insert at new position
+                    channels.splice(newTargetIndex, 0, draggedChannel);
+
+                    saveData();
+                    renderChannels();
+                }
+            }
+
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            
+            // Remove drag-over class from all cards
+            document.querySelectorAll('.tv-card').forEach(card => {
+                card.classList.remove('drag-over');
+            });
+        }
+
+        // Export data
+        function exportData() {
+            const data = {
+                channels,
+                groups,
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `tv-channels-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            alert('Dati esportati con successo!');
+        }
+
+        // Import data
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.channels && data.groups) {
+                        if (confirm('Importare questi dati sostituirà tutti i dati attuali. Continuare?')) {
+                            channels = data.channels;
+                            groups = data.groups;
+                            saveData();
+                            updateGroupSelect();
+                            renderChannels();
+                            alert('Dati importati con successo!');
+                        }
+                    } else {
+                        alert('File non valido!');
+                    }
+                } catch (error) {
+                    alert('Errore nella lettura del file!');
+                    console.error(error);
+                }
+            };
+            
+            reader.readAsText(file);
+            event.target.value = ''; // Reset file input
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
